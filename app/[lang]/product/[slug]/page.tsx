@@ -87,23 +87,25 @@ export default async function ProductPage({
           <div className="flex flex-col gap-4 mt-4 p-8 bg-white border border-stone-100 rounded-2xl shadow-sm">
             <h3 className="text-stone-900 font-semibold text-lg mb-2">{dict.inquireTitle}</h3>
             
-            <a
-              href={waLinkLocal}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-full px-6 py-4 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-xl transition-colors"
-            >
-              {dict.btnLocal}
-            </a>
-
-            <a
-              href={waLinkGlobal}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-full px-6 py-4 border-2 border-stone-200 text-stone-800 hover:bg-stone-50 font-medium rounded-xl transition-colors"
-            >
-              {dict.btnGlobal}
-            </a>
+            {isId ? (
+              <a
+                href={waLinkLocal}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-full px-6 py-4 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-xl transition-colors"
+              >
+                {dict.btnLocal}
+              </a>
+            ) : (
+              <a
+                href={waLinkGlobal}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-full px-6 py-4 border-2 border-stone-200 text-stone-800 hover:bg-stone-50 font-medium rounded-xl transition-colors"
+              >
+                {dict.btnGlobal}
+              </a>
+            )}
           </div>
 
           <p className="text-xs text-stone-400 mt-6 italic">
