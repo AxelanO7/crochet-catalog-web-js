@@ -9,8 +9,12 @@ export default function Navbar({ lang }: { lang: string }) {
   const toggleLanguageHelper = () => {
     if (!pathname) return '/en';
     const newLang = lang === 'id' ? 'en' : 'id';
-    // Use regex to replace the first directory block corresponding to language
-    return pathname.replace(new RegExp(`^\\/${lang}(\\/|$)`), `/${newLang}$1`);
+    if (pathname.startsWith(`/${lang}/`)) {
+      return pathname.replace(`/${lang}/`, `/${newLang}/`);
+    } else if (pathname === `/${lang}`) {
+      return `/${newLang}`;
+    }
+    return pathname;
   };
 
   return (

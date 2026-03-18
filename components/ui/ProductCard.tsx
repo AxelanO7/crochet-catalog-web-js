@@ -5,9 +5,10 @@ import { Product } from '@/lib/data';
 interface ProductCardProps {
   product: Product;
   lang: string;
+  priority?: boolean;
 }
 
-export default function ProductCard({ product, lang }: ProductCardProps) {
+export default function ProductCard({ product, lang, priority }: ProductCardProps) {
   const isId = lang === 'id';
   
   return (
@@ -18,6 +19,7 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
             src={product.image_url}
             alt={isId ? product.name.id : product.name.en}
             fill
+            priority={priority}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
