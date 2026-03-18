@@ -17,38 +17,36 @@ export function ProductCard({ product }: ProductCardProps) {
   const isReady = product.status === 'READY STOCK';
 
   return (
-    <Link href={`/product/${product.slug}`} className="group block focus:outline-none focus:ring-2 focus:ring-zinc-900 rounded-2xl h-full">
+    <Link href={`/product/${product.slug}`} className="group block focus:outline-none focus:ring-2 focus:ring-stone-400 rounded-2xl h-full">
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col h-full bg-white rounded-2xl border border-[#e5e5e5] hover:border-zinc-300 transition-colors overflow-hidden"
+        className="flex flex-col h-full bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
       >
         {/* Edge-to-edge Image Container */}
-        <div className="relative aspect-[4/5] w-full overflow-hidden bg-zinc-50">
+        <div className="relative aspect-[3/4] w-full overflow-hidden bg-stone-50">
           <motion.img
             src={product.image_url}
             alt={product.name}
-            className="absolute inset-0 w-full h-full object-cover"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
           />
         </div>
 
         {/* Minimalist Card Details */}
-        <div className="p-5 flex flex-col flex-grow justify-between gap-4">
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-zinc-900 text-base leading-snug tracking-tight">
+        <div className="p-4 md:p-5 flex flex-col flex-grow justify-between gap-3">
+          <div className="flex flex-col gap-2">
+            <h3 className="font-medium text-stone-800 text-sm md:text-base leading-snug tracking-tight">
               {product.name}
             </h3>
             
-            <div className="flex items-center gap-1.5 shrink-0 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] px-2.5 py-1 rounded-full border border-[#e5e5e5]">
+            <div className="flex items-center gap-1.5 w-fit bg-stone-50 px-2.5 py-1 rounded-full border border-stone-100">
               <span 
-                className={`w-1.5 h-1.5 rounded-full ${isReady ? 'bg-emerald-500' : 'bg-amber-500'}`} 
+                className={`w-1.5 h-1.5 rounded-full ${isReady ? 'bg-emerald-600' : 'bg-orange-400'}`} 
               />
-              <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest">
+              <span className="text-[10px] font-semibold text-stone-600 uppercase tracking-widest">
                 {product.status}
               </span>
             </div>
@@ -63,18 +61,16 @@ export function ProductCard({ product }: ProductCardProps) {
 export function AnimatedHeroText() {
   return (
     <motion.div
-      initial={{ opacity: 0, filter: "blur(8px)", y: 20 }}
-      animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      className="mb-16 md:mb-24"
+      className="px-4 md:px-8 py-16 md:py-24 max-w-7xl mx-auto w-full flex flex-col items-center text-center"
     >
-      <h1 className="text-5xl md:text-[5.5rem] font-extrabold tracking-tighter text-zinc-950 max-w-5xl leading-[1.05]">
-        Handcrafted in Kupang.
-        <br className="hidden md:block" />
-        <span className="text-zinc-400">Worn Worldwide.</span>
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-stone-800 max-w-3xl leading-[1.1]">
+        Handcrafted Crochet <br className="hidden sm:block" /> from Kupang
       </h1>
-      <p className="mt-8 text-xl text-zinc-500 max-w-2xl font-medium tracking-tight">
-        A premium collection of resort-wear and crochet, meticulously woven with patience, preserving culture in every thread.
+      <p className="mt-6 text-lg md:text-xl text-stone-500 max-w-2xl font-normal leading-relaxed">
+        A premium collection of resort-wear and crochet, meticulously woven with patience to add a touch of warmth to your everyday wardrobe.
       </p>
     </motion.div>
   );

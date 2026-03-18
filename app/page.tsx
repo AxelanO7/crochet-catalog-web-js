@@ -1,30 +1,25 @@
-import { supabase } from '@/lib/supabase';
+import { products } from '@/lib/data';
 import { ProductCard, AnimatedHeroText } from '@/components/ui/ProductCard';
 
 export const revalidate = 60; // ISR cache
 
 export default async function HomePage() {
-  const { data: products } = await supabase
-    .from('products')
-    .select('*')
-    .order('created_at', { ascending: false });
-
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA] text-stone-800">
       {/* Animated Hero using the Client boundary wrapper */}
       <AnimatedHeroText />
 
-      {/* Mobbin-style Bento Grid Component */}
-      <section>
+      {/* Catalog Grid Component */}
+      <section className="px-4 md:px-8 pb-24 max-w-7xl mx-auto w-full">
         {products && products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="py-32 w-full flex items-center justify-center border border-dashed border-[#e5e5e5] rounded-[2rem] bg-zinc-50/50">
-            <p className="text-zinc-500 font-medium tracking-wide">
+          <div className="py-32 w-full flex items-center justify-center border border-dashed border-stone-200 rounded-[2rem] bg-white shadow-sm">
+            <p className="text-stone-500 font-medium tracking-wide">
               The catalog is currently empty. More pieces coming soon.
             </p>
           </div>
