@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+body {
+  /* Enforce smooth scrolling globally, styling is mostly handled in layout.tsx */
+  scroll-behavior: smooth;
+}
