@@ -15,11 +15,17 @@ export default function ProductCard({ product, lang, priority }: ProductCardProp
     <Link href={`/${lang}/product/${product.slug}`} className="group block">
       <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full border border-stone-100">
         <div className="relative aspect-[3/4] overflow-hidden bg-[#FAFAFA]">
-          <Image
+          {/* <Image
             src={product.image_url}
             alt={isId ? product.name.id : product.name.en}
             fill
             priority={priority}
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          /> */}
+          <img
+            src={product.image_url}
+            alt={isId ? product.name.id : product.name.en}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />

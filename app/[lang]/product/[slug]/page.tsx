@@ -1,11 +1,10 @@
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
-import { products } from '@/lib/data';
-import { getDictionary } from '@/lib/dictionary';
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { products } from "@/lib/data";
+import { getDictionary } from "@/lib/dictionary";
 
 export function generateStaticParams() {
-  const locales = ['id', 'en'];
+  const locales = ["id", "en"];
   const params: { lang: string; slug: string }[] = [];
 
   for (const locale of locales) {
@@ -25,19 +24,19 @@ export default async function ProductPage({
   const resolvedParams = await params;
   const { lang, slug } = resolvedParams;
   const dict = getDictionary(lang);
-  
+
   const product = products.find((p) => p.slug === slug);
 
   if (!product) {
     notFound();
   }
 
-  const isId = lang === 'id';
+  const isId = lang === "id";
   const productName = isId ? product.name.id : product.name.en;
   const productDesc = isId ? product.description.id : product.description.en;
   const productCat = isId ? product.category.id : product.category.en;
 
-  const waNumber = '6281234567890';
+  const waNumber = "6281234567890";
   const msgLocal = `Halo Admin Xedric Crochet, saya tertarik dengan produk *${product.name.id}*. Berapa harganya?`;
   const msgGlobal = `Hello Xedric Crochet Admin, I am interested in the *${product.name.en}*. Could you please provide the pricing and shipping options?`;
 
@@ -56,12 +55,18 @@ export default async function ProductPage({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start border-stone-100">
         {/* Left side massive image */}
         <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-[#FAFAFA] border border-stone-100 shadow-sm">
-          <Image
+          {/* <Image
             src={product.image_url}
             alt={productName}
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+          /> */}
+          <img
+            src={product.image_url}
+            alt={productName}
+            className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
@@ -85,8 +90,10 @@ export default async function ProductPage({
           </p>
 
           <div className="flex flex-col gap-4 mt-4 p-8 bg-white border border-stone-100 rounded-2xl shadow-sm">
-            <h3 className="text-stone-900 font-semibold text-lg mb-2">{dict.inquireTitle}</h3>
-            
+            <h3 className="text-stone-900 font-semibold text-lg mb-2">
+              {dict.inquireTitle}
+            </h3>
+
             {isId ? (
               <a
                 href={waLinkLocal}
