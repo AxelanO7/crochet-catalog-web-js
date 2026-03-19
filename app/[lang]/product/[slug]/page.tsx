@@ -36,7 +36,7 @@ export default async function ProductPage({
   const productDesc = isId ? product.description.id : product.description.en;
   const productCat = isId ? product.category.id : product.category.en;
 
-  const waNumber = "6281234567890";
+  const waNumber = "6281231111909";
   const msgLocal = `Halo Admin Rianne Crochet, saya tertarik dengan produk *${product.name.id}*. Berapa harganya?`;
   const msgGlobal = `Hello Rianne Crochet Admin, I am interested in the *${product.name.en}*. Could you please provide the pricing and shipping options?`;
 
