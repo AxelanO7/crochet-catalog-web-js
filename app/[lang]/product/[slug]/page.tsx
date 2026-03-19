@@ -37,8 +37,8 @@ export default async function ProductPage({
   const productCat = isId ? product.category.id : product.category.en;
 
   const waNumber = "6281234567890";
-  const msgLocal = `Halo Admin Xedric Crochet, saya tertarik dengan produk *${product.name.id}*. Berapa harganya?`;
-  const msgGlobal = `Hello Xedric Crochet Admin, I am interested in the *${product.name.en}*. Could you please provide the pricing and shipping options?`;
+  const msgLocal = `Halo Admin Rianne Crochet, saya tertarik dengan produk *${product.name.id}*. Berapa harganya?`;
+  const msgGlobal = `Hello Rianne Crochet Admin, I am interested in the *${product.name.en}*. Could you please provide the pricing and shipping options?`;
 
   const waLinkLocal = `https://wa.me/${waNumber}?text=${encodeURIComponent(msgLocal)}`;
   const waLinkGlobal = `https://wa.me/${waNumber}?text=${encodeURIComponent(msgGlobal)}`;
