@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, Search, Languages, Menu } from 'lucide-react';
 import { getDictionary } from '@/lib/dictionary';
 import { useCartStore } from '@/lib/cart-store';
 import { useEffect, useState } from 'react';
@@ -26,35 +26,48 @@ export default function Navbar({ lang }: { lang: string }) {
     return pathname;
   };
 
+  const isCatalog = pathname?.includes('/catalog') || pathname?.includes('/product');
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-surface/90 backdrop-blur-md border-b border-outline-variant/40">
-      <nav className="mx-auto max-w-[1400px] flex h-16 md:h-20 items-center justify-between px-5 md:px-12">
-        <Link href={`/${lang}`} className="font-display text-xl md:text-2xl text-on-surface tracking-tight">
+    <header className="sticky top-0 z-50 w-full bg-surface/90 backdrop-blur-md shadow-sm">
+      <nav className="mx-auto flex max-w-[1280px] items-center justify-between px-5 py-4 md:px-16">
+        <Link href={`/${lang}`} className="font-display text-[28px] md:text-[36px] leading-none text-primary tracking-tight">
           {dict.brand}
         </Link>
-        <div className="flex items-center gap-5 md:gap-8">
+        <div className="hidden md:flex items-center gap-8">
           <Link
             href={`/${lang}/catalog`}
-            className="hidden sm:inline text-sm font-medium text-on-surface-variant hover:text-primary transition-colors"
+            className={
+              isCatalog
+                ? 'border-b-2 border-primary pb-1 font-bold text-primary'
+                : 'text-on-surface-variant transition-colors hover:text-primary'
+            }
           >
             {dict.nav.catalog}
           </Link>
+          <Link href={`/${lang}#story`} className="text-on-surface-variant transition-colors hover:text-primary">
+            Story
+          </Link>
+        </div>
+        <div className="flex items-center gap-4">
+          <Search className="hidden h-5 w-5 text-primary sm:block" />
           <Link
             href={toggleLanguageHelper()}
-            className="text-sm font-medium text-on-surface-variant hover:text-primary transition-colors"
+            className="flex items-center gap-1 text-primary hover:opacity-80"
+            aria-label="Toggle language"
           >
-            <span className={lang === 'id' ? 'text-primary font-bold' : ''}>ID</span>
-            {' | '}
-            <span className={lang === 'en' ? 'text-primary font-bold' : ''}>EN</span>
+            <Languages className="h-5 w-5" />
+            <span className="text-xs font-semibold uppercase">{lang}</span>
           </Link>
-          <Link href={`/${lang}/cart`} className="relative text-on-surface-variant hover:text-primary transition-colors">
+          <Link href={`/${lang}/cart`} className="relative text-primary transition-colors hover:opacity-80">
             <ShoppingBag className="h-5 w-5" />
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-primary text-on-primary text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-on-primary">
                 {cartCount}
               </span>
             )}
           </Link>
+          <Menu className="h-5 w-5 text-primary md:hidden" />
         </div>
       </nav>
     </header>

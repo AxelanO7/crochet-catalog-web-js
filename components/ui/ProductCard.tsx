@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ShoppingBag } from 'lucide-react';
 import type { Product } from '@/lib/types';
 import { localizedName } from '@/lib/types';
 import { getDictionary } from '@/lib/dictionary';
@@ -12,35 +13,37 @@ export default function ProductCard({ product, lang }: ProductCardProps) {
   const dict = getDictionary(lang);
   const image = product.product_images?.[0]?.url;
   const statusLabel = product.status === 'READY STOCK' ? dict.readyStock : dict.preOrder;
+  const badgeClass =
+    product.status === 'READY STOCK'
+      ? 'bg-secondary-container text-on-secondary-container'
+      : 'bg-tertiary-container text-on-primary';
 
   return (
     <Link href={`/${lang}/product/${product.slug}`} className="group block">
-      <div className="bg-surface-container-lowest rounded-lg shadow-soft hover:-translate-y-1 transition-transform overflow-hidden flex flex-col h-full border border-outline-variant/30">
-        <div className="relative aspect-[4/5] overflow-hidden bg-surface-container">
-          {image && (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={image}
-              alt={localizedName(product, lang)}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          )}
-          <div className="absolute top-3 right-3 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-on-surface">
+      <div className="soft-elevation relative mb-4 aspect-[4/5] overflow-hidden rounded-xl bg-surface-container transition-transform duration-500 hover:-translate-y-2">
+        {image && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={image}
+            alt={localizedName(product, lang)}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        )}
+        <div className="absolute left-4 top-4">
+          <span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${badgeClass}`}>
             {statusLabel}
-          </div>
+          </span>
         </div>
-        <div className="p-5 flex flex-col flex-grow gap-1">
-          <p className="text-xs font-medium text-on-surface-variant uppercase tracking-wider">
-            {product.category ? (lang === 'en' ? product.category.name_en : product.category.name_id) : ''}
-          </p>
-          <h3 className="font-display text-lg text-on-surface leading-snug">
-            {localizedName(product, lang)}
-          </h3>
-          <p className="text-sm font-semibold text-primary mt-1">
-            Rp {product.price.toLocaleString('id-ID')}
-          </p>
-        </div>
+        <button
+          type="button"
+          className="absolute bottom-4 right-4 translate-y-2 rounded-full bg-surface/90 p-3 text-primary opacity-0 shadow-md transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+          aria-label={dict.addToCart}
+        >
+          <ShoppingBag className="h-4 w-4" />
+        </button>
       </div>
+      <h3 className="font-display text-[20px] leading-snug text-on-surface">{localizedName(product, lang)}</h3>
+      <p className="text-on-surface-variant">Rp {product.price.toLocaleString('id-ID')}</p>
     </Link>
   );
 }

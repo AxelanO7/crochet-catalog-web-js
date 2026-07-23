@@ -25,10 +25,17 @@
 
   --color-tertiary: #8d4840;
 
+  --radius-DEFAULT: 0.25rem;
   --radius-sm: 0.25rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+  --spacing-container-max: 1280px;
 }
 
 body {
@@ -39,4 +46,21 @@ body {
 
 .shadow-soft {
   box-shadow: 0 20px 40px -20px rgba(154, 63, 37, 0.18);
+}
+
+.soft-elevation {
+  box-shadow: 0 10px 30px -5px rgba(155, 63, 37, 0.1);
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.03;
+  background-image: url('https://www.transparenttextures.com/patterns/felt.png');
+}
+
+.active-press:active {
+  transform: scale(0.97);
 }

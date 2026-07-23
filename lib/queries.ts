@@ -11,6 +11,25 @@ export async function getCategories(): Promise<Category[]> {
   return data ?? [];
 }
 
+export type CategoryWithImage = Category & { image: string | null };
+
+export async function getCategoriesWithImage(): Promise<CategoryWithImage[]> {
+  const supabase = await createClient();
+  const categories = await getCategories();
+  const { data: products } = await supabase
+    .from('products')
+    .select('category_id, order_index, product_images(url, order_index)')
+    .eq('is_active', true)
+    .order('order_index', { ascending: true });
+
+  return categories.map((cat) => {
+    const match = (products ?? []).find((p) => p.category_id === cat.id);
+    const images = (match?.product_images ?? []) as { url: string; order_index: number }[];
+    const image = images.slice().sort((a, b) => a.order_index - b.order_index)[0]?.url ?? null;
+    return { ...cat, image };
+  });
+}
+
 export async function getProducts(categorySlug?: string): Promise<Product[]> {
   const supabase = await createClient();
   let query = supabase
