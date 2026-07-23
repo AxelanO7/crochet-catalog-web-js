@@ -5,6 +5,8 @@ import { getCategoriesWithImage, getFeaturedProducts } from '@/lib/queries';
 import ProductCard from '@/components/ui/ProductCard';
 import { localizedName } from '@/lib/types';
 
+const HERO_IMAGE_URL = 'https://live.staticflickr.com/65535/49716523782_ca0fa175b5_b.jpg';
+
 export default async function Home({
   params,
 }: {
@@ -13,17 +15,14 @@ export default async function Home({
   const { lang } = await params;
   const dict = getDictionary(lang);
   const [categories, featured] = await Promise.all([getCategoriesWithImage(), getFeaturedProducts(6)]);
-  const storyImage = featured[0]?.product_images?.[0]?.url;
 
   return (
     <div className="flex flex-col">
       {/* Hero — full-bleed background */}
       <section className="relative flex min-h-[600px] items-center overflow-hidden md:min-h-[700px]">
         <div className="absolute inset-0 z-0">
-          {storyImage && (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img src={storyImage} alt="" className="h-full w-full object-cover" />
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={HERO_IMAGE_URL} alt="" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-surface/85 via-surface/40 to-transparent" />
         </div>
         <div className="relative z-10 mx-auto w-full max-w-[1280px] px-5 py-24 md:px-16">

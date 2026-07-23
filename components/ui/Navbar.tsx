@@ -53,11 +53,11 @@ export default function Navbar({ lang }: { lang: string }) {
           <Search className="hidden h-5 w-5 text-primary sm:block" />
           <Link
             href={toggleLanguageHelper()}
-            className="flex items-center gap-1 text-primary hover:opacity-80"
+            className="flex items-center gap-0.5 text-on-surface-variant hover:text-primary"
             aria-label="Toggle language"
           >
-            <Languages className="h-5 w-5" />
-            <span className="text-xs font-semibold uppercase">{lang}</span>
+            <Languages className="h-4 w-4" />
+            <span className="text-[10px] font-semibold uppercase">{lang}</span>
           </Link>
           <Link href={`/${lang}/cart`} className="relative text-primary transition-colors hover:opacity-80">
             <ShoppingBag className="h-5 w-5" />
