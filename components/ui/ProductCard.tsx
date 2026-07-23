@@ -1,45 +1,44 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { Product } from '@/lib/data';
+import type { Product } from '@/lib/types';
+import { localizedName } from '@/lib/types';
+import { getDictionary } from '@/lib/dictionary';
 
 interface ProductCardProps {
   product: Product;
   lang: string;
-  priority?: boolean;
 }
 
-export default function ProductCard({ product, lang, priority }: ProductCardProps) {
-  const isId = lang === 'id';
-  
+export default function ProductCard({ product, lang }: ProductCardProps) {
+  const dict = getDictionary(lang);
+  const image = product.product_images?.[0]?.url;
+  const statusLabel = product.status === 'READY STOCK' ? dict.readyStock : dict.preOrder;
+
   return (
     <Link href={`/${lang}/product/${product.slug}`} className="group block">
-      <div className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col h-full border border-stone-100">
-        <div className="relative aspect-[3/4] overflow-hidden bg-[#FAFAFA]">
-          {/* <Image
-            src={product.image_url}
-            alt={isId ? product.name.id : product.name.en}
-            fill
-            priority={priority}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          /> */}
-          <img
-            src={product.image_url}
-            alt={isId ? product.name.id : product.name.en}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-          <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-stone-800">
-            {product.status}
+      <div className="bg-surface-container-lowest rounded-lg shadow-soft hover:-translate-y-1 transition-transform overflow-hidden flex flex-col h-full border border-outline-variant/30">
+        <div className="relative aspect-[4/5] overflow-hidden bg-surface-container">
+          {image && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={image}
+              alt={localizedName(product, lang)}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          )}
+          <div className="absolute top-3 right-3 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-on-surface">
+            {statusLabel}
           </div>
         </div>
-        <div className="p-6 flex flex-col flex-grow">
-          <p className="text-xs font-medium text-stone-500 mb-2 uppercase tracking-wider">
-            {isId ? product.category.id : product.category.en}
+        <div className="p-5 flex flex-col flex-grow gap-1">
+          <p className="text-xs font-medium text-on-surface-variant uppercase tracking-wider">
+            {product.category ? (lang === 'en' ? product.category.name_en : product.category.name_id) : ''}
           </p>
-          <h3 className="text-lg font-semibold text-stone-800 leading-snug">
-            {isId ? product.name.id : product.name.en}
+          <h3 className="font-display text-lg text-on-surface leading-snug">
+            {localizedName(product, lang)}
           </h3>
+          <p className="text-sm font-semibold text-primary mt-1">
+            Rp {product.price.toLocaleString('id-ID')}
+          </p>
         </div>
       </div>
     </Link>

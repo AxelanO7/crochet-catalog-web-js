@@ -1,15 +1,20 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { updateSession } from '@/lib/supabase/middleware';
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
+
   if (
     pathname.startsWith('/_next') ||
     pathname.includes('/api/') ||
     pathname.includes('.')
   ) {
     return NextResponse.next();
+  }
+
+  if (pathname.startsWith('/admin')) {
+    return updateSession(request);
   }
 
   if (pathname === '/') {
@@ -27,3 +32,7 @@ export function proxy(request: NextRequest) {
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};

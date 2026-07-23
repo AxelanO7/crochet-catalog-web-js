@@ -1,10 +1,42 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-inter);
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-montserrat);
+
+  --color-surface: #fff8ef;
+  --color-surface-dim: #e1d9cb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fbf3e4;
+  --color-surface-container: #f5edde;
+  --color-surface-container-high: #efe7d9;
+  --color-on-surface: #1e1b13;
+  --color-on-surface-variant: #56423d;
+  --color-outline: #89726c;
+  --color-outline-variant: #ddc0b9;
+
+  --color-primary: #9b3f25;
+  --color-primary-container: #bb563b;
+  --color-on-primary: #ffffff;
+
+  --color-secondary: #54643b;
+  --color-secondary-container: #d4e7b3;
+  --color-on-secondary: #ffffff;
+
+  --color-tertiary: #8d4840;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
 body {
-  /* Enforce smooth scrolling globally, styling is mostly handled in layout.tsx */
   scroll-behavior: smooth;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+.shadow-soft {
+  box-shadow: 0 20px 40px -20px rgba(154, 63, 37, 0.18);
 }
