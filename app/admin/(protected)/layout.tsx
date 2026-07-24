@@ -22,6 +22,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link href="/admin/orders" className="px-3 py-2 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-on-surface">
             Pesanan
           </Link>
+          <Link href="/admin/guide" className="px-3 py-2 rounded-md hover:bg-surface-container text-on-surface-variant hover:text-on-surface">
+            Panduan
+          </Link>
         </nav>
         <div className="mt-auto pt-4 border-t border-outline-variant/30">
           <p className="text-xs text-outline mb-2 truncate">{user?.email}</p>
